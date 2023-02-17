@@ -1,1 +1,1 @@
-# ddbj_blastdb_updator
+# autonomous_blastdb_updator
