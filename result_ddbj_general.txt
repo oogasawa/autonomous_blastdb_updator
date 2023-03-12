@@ -1,0 +1,22 @@
+pigz: skipping: /home/w3wabi/BLAST/na/ddbj/fasta/*ddbjhum*.seq.gz does not exist
+FATAL:   could not open image /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0: failed to retrieve path for /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0: lstat /usr/local/biotools: no such file or directory
+pigz: skipping: /home/w3wabi/BLAST/na/ddbj/fasta/*ddbjpri*.seq.gz does not exist
+FATAL:   could not open image /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0: failed to retrieve path for /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0: lstat /usr/local/biotools: no such file or directory
+pigz: skipping: /home/w3wabi/BLAST/na/ddbj/fasta/*ddbjrod*.seq.gz does not exist
+FATAL:   could not open image /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0: failed to retrieve path for /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0: lstat /usr/local/biotools: no such file or directory
+pigz: skipping: /home/w3wabi/BLAST/na/ddbj/fasta/*ddbjmam*.seq.gz does not exist
+FATAL:   could not open image /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0: failed to retrieve path for /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0: lstat /usr/local/biotools: no such file or directory
+pigz: skipping: /home/w3wabi/BLAST/na/ddbj/fasta/*ddbjvrt*.seq.gz does not exist
+FATAL:   could not open image /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0: failed to retrieve path for /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0: lstat /usr/local/biotools: no such file or directory
+pigz: skipping: /home/w3wabi/BLAST/na/ddbj/fasta/*ddbjinv*.seq.gz does not exist
+FATAL:   could not open image /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0: failed to retrieve path for /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0: lstat /usr/local/biotools: no such file or directory
+pigz: skipping: /home/w3wabi/BLAST/na/ddbj/fasta/*ddbjpln*.seq.gz does not exist
+FATAL:   could not open image /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0: failed to retrieve path for /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0: lstat /usr/local/biotools: no such file or directory
+pigz: skipping: /home/w3wabi/BLAST/na/ddbj/fasta/*ddbjbct*.seq.gz does not exist
+FATAL:   could not open image /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0: failed to retrieve path for /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0: lstat /usr/local/biotools: no such file or directory
+pigz: skipping: /home/w3wabi/BLAST/na/ddbj/fasta/*ddbjvrl*.seq.gz does not exist
+FATAL:   could not open image /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0: failed to retrieve path for /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0: lstat /usr/local/biotools: no such file or directory
+pigz: skipping: /home/w3wabi/BLAST/na/ddbj/fasta/*ddbjphg*.seq.gz does not exist
+FATAL:   could not open image /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0: failed to retrieve path for /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0: lstat /usr/local/biotools: no such file or directory
+pigz: skipping: /home/w3wabi/BLAST/na/ddbj/fasta/*ddbjenv*.seq.gz does not exist
+FATAL:   could not open image /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0: failed to retrieve path for /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0: lstat /usr/local/biotools: no such file or directory

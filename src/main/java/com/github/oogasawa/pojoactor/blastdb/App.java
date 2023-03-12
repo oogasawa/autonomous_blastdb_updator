@@ -6,6 +6,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import com.github.oogasawa.pojoactor.blastdb.pojo.MinimizedDatasetGenerator;
 import com.github.oogasawa.utility.cli.CliCommands;
 
 
@@ -18,7 +19,7 @@ public class App
         var cli = new CliCommands();
 
         cli.addCommand("update", createUpdateOptions());
-        //cli.addCommand("dummy", createDummyOptions());
+        cli.addCommand("generate_test_dataset", createTestDatasetOptions());
 
         try {
 
@@ -34,6 +35,11 @@ public class App
             else if (cli.getCommand().equals("update")) {
 
             }
+            else if (cli.getCommand().equals("generate_test_dataset")) {
+                MinimizedDatasetGenerator gen = new MinimizedDatasetGenerator();
+                gen.printShellScript();
+            }
+
             else {
                 cli.printHelp(helpStr);
             }
@@ -56,6 +62,21 @@ public class App
                         .argName("threadNum")
                         .desc("Number of Threads")
                         .required(true)
+                        .build());
+
+        return opts;
+    }
+
+        public static Options createTestDatasetOptions() {
+        Options opts = new Options();
+
+        opts.addOption(Option.builder("dataset")
+                        .option("s")
+                        .longOpt("dataset")
+                        .hasArg(true)
+                        .argName("datasetName")
+                        .desc("dataset name (e.g. ddbj, 16S, ...: sorry, not impremented)")
+                        .required(false)
                         .build());
 
         return opts;
