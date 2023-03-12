@@ -6,7 +6,7 @@
 
   <groupId>com.github.oogasawa</groupId>
   <artifactId>autonomous_blastdb_updator</artifactId>
-  <version>0.9.0</version>
+  <version>0.2.0</version>
 
   <name>autonomous_blastdb_updator</name>
   <!-- FIXME change it to the project's website -->

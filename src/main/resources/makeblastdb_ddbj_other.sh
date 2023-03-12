@@ -1,8 +1,9 @@
-MAKEBLASTDB="singularity exec /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0 makeblastdb -hash_index -parse_seqids "
+MAKEBLASTDB="singularity exec -H $PWD /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0 makeblastdb -hash_index -parse_seqids "
 
-ddbj_unified_all_fasta=/home/w3wabi/BLAST/na/ddbj/fasta
+ddbj_unified_all_fasta=$HOME/BLAST/na/ddbj/fasta
 ZCAT="pigz -cd -p 8"
 
+mkdir ddbj
 ${ZCAT} ${ddbj_unified_all_fasta}/*est*.seq.gz | ${MAKEBLASTDB} -out ddbj/est -dbtype nucl -title est
 
 ${ZCAT} ${ddbj_unified_all_fasta}/*ddbjgss*.seq.gz | ${MAKEBLASTDB} -out ddbj/gss -dbtype nucl -title gss

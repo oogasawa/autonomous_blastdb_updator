@@ -1,11 +1,11 @@
 
-MAKEBLASTDB="singularity exec /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0 makeblastdb -hash_index -parse_seqids "
+MAKEBLASTDB="singularity exec -H $PWD /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0 makeblastdb -hash_index -parse_seqids "
 
 
 # RefSeq
-refseq_na_fasta=/home/w3wabi/BLAST/na/refseq/fasta
+refseq_na_fasta=$HOME/BLAST/na/refseq/fasta
 ZCAT="pigz -cd -p 8"
-
+mkdir refseq
 
 ## genomic
 ${ZCAT} ${refseq_na_fasta}/release/archaea/*.genomic.fna.gz | ${MAKEBLASTDB} -out refseq/refseq-genomic-archaea -dbtype nucl -title refseq-genomic-archaea

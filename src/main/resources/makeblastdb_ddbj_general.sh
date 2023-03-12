@@ -1,7 +1,9 @@
-MAKEBLASTDB="singularity exec /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0 makeblastdb -hash_index -parse_seqids "
-ddbj_unified_all_fasta=/home/w3wabi/BLAST/na/ddbj/fasta
+echo $PWD
+MAKEBLASTDB="singularity exec -H $PWD /usr/local/biotools/b/blast:2.13.0--hf3cf87c_0 makeblastdb -hash_index -parse_seqids "
+ddbj_unified_all_fasta=$HOME/BLAST/na/ddbj/fasta
 ZCAT="pigz -cd -p 8"
 
+mkdir ddbj
 ${ZCAT} ${ddbj_unified_all_fasta}/*ddbjhum*.seq.gz | ${MAKEBLASTDB} -out ddbj/hum -dbtype nucl -title hum
 ${ZCAT} ${ddbj_unified_all_fasta}/*ddbjpri*.seq.gz | ${MAKEBLASTDB} -out ddbj/pri -dbtype nucl -title pri
 ${ZCAT} ${ddbj_unified_all_fasta}/*ddbjrod*.seq.gz | ${MAKEBLASTDB} -out ddbj/rod -dbtype nucl -title rod
@@ -15,9 +17,7 @@ ${ZCAT} ${ddbj_unified_all_fasta}/*ddbjphg*.seq.gz | ${MAKEBLASTDB} -out ddbj/ph
 ${ZCAT} ${ddbj_unified_all_fasta}/*ddbjsyn*.seq.gz | ${MAKEBLASTDB} -out ddbj/syn -dbtype nucl -title syn
 ${ZCAT} ${ddbj_unified_all_fasta}/*ddbjenv*.seq.gz | ${MAKEBLASTDB} -out ddbj/env -dbtype nucl -title env
 
-cat <<EOF > ddbj/general.nal                                                                                                                                       
+cat <<EOT > ddbj/general.nal                                                                                                                                       
 TITLE general                                                                                                                                                      
 DBLIST hum pri rod mam vrt inv pln bct vrl phg syn env                                                                                                                 
-EOF                                                                                                                                                                
-
-
+EOT

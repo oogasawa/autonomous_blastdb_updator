@@ -259,7 +259,7 @@ public class MinimizedDatasetGenerator {
         joiner.add("mkdir -p ${DEST_DATASET_DIR}/na/16S/fasta");
 
         Path srcPath = Path.of("${SRC_DATASET_DIR}", "na", "16S", "fasta", "16S.fasta.gz");
-        Path destPath = Path.of("${DEST_DATASET_DIR}", "na", "ddbj", "fasta");
+        Path destPath = Path.of("${DEST_DATASET_DIR}", "na", "16S", "fasta");
 
         joiner.add(String.format("cp -p %s %s", srcPath.toString(), destPath.toString()));
         joiner.add("");

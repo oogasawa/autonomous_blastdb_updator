@@ -1,3 +1,4 @@
+
 package com.github.oogasawa.pojoactor.blastdb;
 
 import java.nio.file.Path;
@@ -37,7 +38,12 @@ public class UpdatorStage {
     
     //@SuppressWarnings("unchecked")
     public static void main(String[] args) {
+        UpdatorStage stage = new UpdatorStage();
+        stage.start();
+    }
+
     
+    public void start() {
         BlastdbDir dirObj = new BlastdbDir();
         Path buildDir = dirObj.createBuildDirectory(LocalDateTime.now(), true);
 
@@ -64,6 +70,7 @@ public class UpdatorStage {
             ExecutorService wsp = system.getWorkStealingPool();
 
             for (String name: naDbNames) {
+                logger.log(Level.INFO, String.format("execute actor %s, %s", name, buildDir.toString()));
                 results.add(system.getActor(name).ask(a->{ return ((ScriptExecutor)a).execute(buildDir);}, wsp));
             }
 

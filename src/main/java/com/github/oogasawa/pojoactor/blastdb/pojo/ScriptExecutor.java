@@ -87,6 +87,9 @@ public class ScriptExecutor {
 
                 deployScript(dbName, naBuildDir);
 
+                logger.log(Level.INFO, "$HOME : " + System.getenv("HOME"));
+                logger.log(Level.INFO, "naBuildDir : " + naBuildDir.toString());
+                
                 String resultFileName = "result_" + dbName + ".txt";
                 Process p = new ProcessBuilder("/bin/bash", scriptName)
                     .directory(naBuildDir.toFile())
@@ -100,6 +103,9 @@ public class ScriptExecutor {
                 Path aaBuildDir = buildDir.resolve("aa");
                 deployScript(dbName, aaBuildDir);
 
+                logger.log(Level.INFO, "$HOME : " + System.getenv("HOME"));
+                logger.log(Level.INFO, "aaBuildDir : " + aaBuildDir.toString());
+                
                 String resultFileName = "result_" + dbName + ".txt";
                 Process p = new ProcessBuilder("/bin/bash", scriptName)
                     .directory(aaBuildDir.toFile())

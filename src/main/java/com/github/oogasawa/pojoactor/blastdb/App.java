@@ -33,7 +33,8 @@ public class App
 
             }
             else if (cli.getCommand().equals("update")) {
-
+                UpdatorStage stage = new UpdatorStage();
+                stage.start();
             }
             else if (cli.getCommand().equals("generate_test_dataset")) {
                 MinimizedDatasetGenerator gen = new MinimizedDatasetGenerator();
