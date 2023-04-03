@@ -1,0 +1,8 @@
+
+java -DXmx12G --enable-preview -jar target/blastdb-updator.jar fasta:unique \
+    --fastaBasePath=$HOME/blast_test_dataset/na/refseq/fasta/daily \
+    --dbName=/data1/tmp_refseq_daily \
+    --ext="fna.gz" \
+    --outfile=$HOME/blast_test_dataset/refseq_daily.fasta
+
+

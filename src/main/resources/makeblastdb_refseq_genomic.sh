@@ -25,3 +25,10 @@ ${ZCAT} ${refseq_na_fasta}/release/vertebrate_other/*.genomic.fna.gz | ${MAKEBLA
 
 ### Added.
 ${ZCAT} ${refseq_na_fasta}/release/other/*.genomic.fna.gz | ${MAKEBLASTDB} -out refseq/refseq-genomic-other -dbtype nucl -title refseq-genomic-other
+
+
+
+cat <<EOT > refseq/refseq-genomic.nal
+TITLE refseq-genomic                                                                                                                                                      
+DBLIST refseq-genomic-archaea refseq-genomic-bacteria refseq-genomic-fungi refseq-genomic-invertebrate refseq-genomic-plant refseq-genomid-plasmid refseq-genomic-plastid refseq-genomic-protozoa refseq-genomic-virus refseq-genomic-vertebrate_mammalian refseq-genonic-vertebrate_other
+EOT

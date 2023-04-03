@@ -6,18 +6,26 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-import java.nio.file.Path;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
-import com.github.oogasawa.pojoactor.blastdb.pojo.FastaUniquifier;
 import com.github.oogasawa.pojoactor.blastdb.pojo.MinimizedDatasetGenerator;
+import com.github.oogasawa.pojoactor.blastdb.team.FastaUniquifierTeam;
+import com.github.oogasawa.pojoactor.blastdb.team.UpdatorTeam;
 import com.github.oogasawa.utility.cli.CliCommands;
 
 
 public class App
 {
+
+    private static final Logger logger = Logger.getLogger("com.github.oogasawa.pojoactor.blastdb.UpdatorTeam");
+    
     public static void main( String[] args )
     {
 
+        
         var helpStr = "java -jar blastdb-updator.jar <command> <options>";
         var cli = new CliCommands();
 
@@ -27,6 +35,8 @@ public class App
 
         try {
 
+            LogManager.getLogManager().readConfiguration(App.class.getResourceAsStream("/logging.properties"));
+            
             CommandLine cmd = cli.parse(args);
 
             if (cli.getCommand() == null) {
@@ -37,18 +47,20 @@ public class App
 
             }
             else if (cli.getCommand().equals("blastdb5:update")) {
-                UpdatorStage stage = new UpdatorStage();
-                stage.start();
+
+                UpdatorTeam team = new UpdatorTeam();
+                if (cmd.getOptionValue("blastdb") == null) {
+                    team.start();
+                }
+                else {
+                    String blastdb = cmd.getOptionValue("blastdb");
+
+                }
             }
             else if (cli.getCommand().equals("fasta:unique")) {
-                FastaUniquifier unifier = new FastaUniquifier();
-                String fastaBasePath = cmd.getOptionValue("fastaBasePath");
-                String extension = cmd.getOptionValue("ext");
-                String dbName = cmd.getOptionValue("dbName");
-                unifier.readAll(Path.of(fastaBasePath), extension, dbName);
-
-                String outfile = cmd.getOptionValue("outfile");
-                unifier.write(Path.of(outfile), dbName);
+                FastaUniquifierTeam team = new FastaUniquifierTeam();
+                team.setOptions(cmd);
+                team.start();
             }
             else if (cli.getCommand().equals("test_dataset:generate")) {
                 MinimizedDatasetGenerator gen = new MinimizedDatasetGenerator();
@@ -59,9 +71,12 @@ public class App
                 cli.printHelp(helpStr);
             }
 
-        } catch (ParseException e) {
+        } catch (ParseException | SecurityException e) {
             System.err.println("Parsing failed.  Reason: " + e.getMessage());
             cli.printHelp(helpStr);
+        }
+        catch (IOException e) {
+            logger.log(Level.SEVERE, "Can not read logging.properties.");
         }
     }
 
@@ -79,6 +94,16 @@ public class App
                         .required(true)
                         .build());
 
+        opts.addOption(Option.builder("blastdb")
+                        .option("d")
+                        .longOpt("blastdb")
+                        .hasArg(true)
+                        .argName("blastdb")
+                        .desc("A target blast database for updates")
+                        .required(false)
+                        .build());
+
+        
         return opts;
     }
 

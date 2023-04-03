@@ -1,5 +1,4 @@
-
-package com.github.oogasawa.pojoactor.blastdb;
+package com.github.oogasawa.pojoactor.blastdb.team;
 
 import java.nio.file.Path;
 import java.time.LocalDateTime;
@@ -15,9 +14,9 @@ import com.github.oogasawa.pojoactor.blastdb.pojo.BlastdbDir;
 import com.github.oogasawa.pojoactor.blastdb.pojo.ScriptExecutor;
 
 
-public class UpdatorStage {
+public class UpdatorTeam {
 
-    private static final Logger logger = Logger.getLogger("com.github.oogasawa.pojoactor.blastdb.UpdatorStage");
+    private static final Logger logger = Logger.getLogger("com.github.oogasawa.pojoactor.blastdb.UpdatorTeam");
 
     static String[] naDbNames = {
         "ddbj_general",
@@ -38,7 +37,7 @@ public class UpdatorStage {
     
     //@SuppressWarnings("unchecked")
     public static void main(String[] args) {
-        UpdatorStage stage = new UpdatorStage();
+        UpdatorTeam stage = new UpdatorTeam();
         stage.start();
     }
 

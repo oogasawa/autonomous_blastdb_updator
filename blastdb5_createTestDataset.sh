@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SRC_DATASET_DIR=${HOME}/BLAST
-DEST_DATASET_DIR=${HOME}/blast_test_dataset
+DEST_DATASET_DIR=${HOME}/blast5_test_dataset
 
 # ddbj databases
 mkdir -p ${DEST_DATASET_DIR}/na/ddbj/fasta

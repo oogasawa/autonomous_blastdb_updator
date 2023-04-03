@@ -20,3 +20,10 @@ ${ZCAT} ${refseq_na_fasta}/release/vertebrate_mammalian/*.rna.fna.gz | ${MAKEBLA
 ebrate_mammalian
 ${ZCAT} ${refseq_na_fasta}/release/vertebrate_other/*.rna.fna.gz | ${MAKEBLASTDB} -out refseq/refseq-rna-vertebrate_other -dbtype nucl -title refseq-rna-vertebrate_o\
 ther
+
+
+
+cat <<EOT > refseq/refseq-rna.nal
+TITLE refseq-rna                                                                                                                                                      
+DBLIST refseq-rna-archaea refseq-rna-bacteria refseq-rna-fungi refseq-rna-invertebrate refseq-rna-plant refseq-rna-plasmid refseq-rna-protozoa refseq-rna-vertebrate_mammalian refseq-rna-vertebrate_other
+EOT

@@ -21,7 +21,8 @@ import org.apache.commons.configuration2.ex.ConfigurationException;
 public class FastaUniquifier {
 
     private static final Logger logger = Logger.getLogger("com.github.oogasawa.pojoactor.pojo.FastaUniquifier");
-
+    
+    
     /** Reads a FASTA file into a BDB database, with removing duplication of sequence IDs.
      *
      * When there are multiple identical IDs, the one that appears later takes precedence.
@@ -32,24 +33,28 @@ public class FastaUniquifier {
      */
     public void read(Path infile, String dbName) {
 
+        
+        logger.logp(Level.INFO, FastaUniquifier.class.getName(), "read", "enter");
+        logger.info("infile: " + infile.toString());
+        
         Pattern pDescLine = Pattern.compile("^>(\\S+)\s+(.+)$");
         Pattern pSeqLine = Pattern.compile("^([ a-zA-Z]+)$");
         Pattern pNullLine = Pattern.compile("^\s*$");
         
         BDBFactory facObj = new BDBFactory();
-
+        DCContainer dbObj = null;
         try {
-            DCContainer dbObj = facObj.getInstance(dbName);
+            dbObj = facObj.getInstance(dbName);
 
             String key = null;
             StringJoiner value = new StringJoiner("\n");
-            try (var in = FileIO.getBufferedReader(infile.toFile())) {
+            try (var in = FileIO.getBufferedReaderGz(infile.toString())) {
                 String line = null;
                 while ((line = in.readLine()) != null) {
 
                     // description line.
                     Matcher m = pDescLine.matcher(line);
-                    if (m != null) {
+                    if (m.find()) {
 
                         if (key != null) {
                             dbObj.putRowWithReplacingValues("seqId", key, "contents", value.toString());
@@ -63,13 +68,13 @@ public class FastaUniquifier {
 
                     // empty (null) line
                     m = pNullLine.matcher(line);
-                    if (m != null) {
+                    if (m.matches()) {
                         continue;
                     }
 
                     // sequence line
                     m = pSeqLine.matcher(line);
-                    if (m != null) {
+                    if (m.matches()) {
                         value.add(line);
                         continue;
                     }
@@ -80,12 +85,15 @@ public class FastaUniquifier {
             } catch (IOException e) {
                 logger.log(Level.SEVERE, "Error at opening FASTA file " + infile.toString(), e);
             }
-
-            dbObj.close();
             
         } catch (ConfigurationException e) {
             logger.log(Level.SEVERE, "Error at opening BDB database " + dbName, e);
         }
+        finally {
+            logger.logp(Level.INFO, FastaUniquifier.class.getName(), "read", "exit");
+            dbObj.close();
+        }
+        
 
     }    
 
@@ -96,6 +104,10 @@ public class FastaUniquifier {
      * @param dbName BDB database name.
      */
     public void readAll(Path fastaBasePath, String ext, String dbName) {
+
+        logger.logp(Level.INFO, FastaUniquifier.class.getName(), "readAll", "enter");
+        logger.log(Level.INFO, "fastaBasePath: " + fastaBasePath.toString());
+        
         Stream.of(fastaBasePath.toFile().listFiles())
             .filter(f->f.getName().endsWith(ext))
             .sorted((f1, f2)->{
@@ -109,6 +121,8 @@ public class FastaUniquifier {
             .forEach((f)->{
                     this.read(f.toPath(), dbName);
                 });
+
+        logger.logp(Level.INFO, FastaUniquifier.class.getName(), "readAll", "exit");
     }
 
 
@@ -122,13 +136,18 @@ public class FastaUniquifier {
      * @param dbName  A BDB database name.
      */
     public void write(Path outfile, String dbName) {
-        BDBFactory facObj = new BDBFactory();
 
+        logger.logp(Level.INFO, FastaUniquifier.class.getName(), "write", "enter");
+        
+        BDBFactory facObj = new BDBFactory();
+        DCContainer dbObj = null;
+        
         try {
-            DCContainer dbObj = facObj.getInstance(dbName);
+            dbObj = facObj.getInstance(dbName);
 
             try (var out = FileIO.getPrintWriter(outfile.toFile())) {
 
+                dbObj.setIterableTable("seqId", "contents");
                 Iterator<DataCell> iter = dbObj.iterator();
                 while (iter.hasNext()) {
                     DataCell cell = iter.next();
@@ -140,10 +159,14 @@ public class FastaUniquifier {
                 logger.log(Level.SEVERE, "Error at opening FASTA file " + outfile.toString(), e);
             }
 
-            dbObj.close();
+            
             
         } catch (ConfigurationException e) {
             logger.log(Level.SEVERE, "Error at opening BDB database " + dbName, e);
+        }
+        finally {
+            logger.logp(Level.INFO, FastaUniquifier.class.getName(), "write", "exit");
+            dbObj.close();
         }
         
     }
